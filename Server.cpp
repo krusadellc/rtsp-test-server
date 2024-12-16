@@ -23,7 +23,7 @@
 static std::unique_ptr<spdlog::logger> Log;
 
 struct Config {
-    uint16_t port = 8554;
+    uint16_t port = 9554;
 };
 
 static void InitLogger() {
