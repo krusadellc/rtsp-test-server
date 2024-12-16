@@ -18,6 +18,7 @@
 #define RED   "red"
 #define GREEN "green"
 #define BLUE  "blue"
+#define TEST "test"
 
 static std::unique_ptr<spdlog::logger> Log;
 
@@ -82,22 +83,28 @@ int main(int argc, char *argv[])
 
     const std::string h264PipelineTemplate =
         "( videotestsrc pattern={} ! "
+     // "clockoverlay shaded-background=true font-desc=\"Sans, 36\" time-format=\"%D %H:%M:%S\" ! "
+        "timeoverlay ! "
         "x264enc ! video/x-h264, profile=baseline ! "
         "rtph264pay name=pay0 pt=96 config-interval=-1 "
         "audiotestsrc ! alawenc ! rtppcmapay name=pay1 pt=8 )";
 
     const std::string vp8PipelineTemplate =
         "( videotestsrc pattern={} ! "
+        "timeoverlay ! "
         "vp8enc ! rtpvp8pay name=pay0 pt=96 "
         "audiotestsrc ! opusenc ! rtpopuspay name=pay1 pt=97 )";
 
     const std::deque<std::pair<std::string, std::string>> createMountPoints = {
+        /*
         {BARS, "smpte100"},
         {WHITE, "white"},
         {BLACK, "black"},
         {RED, "red"},
         {GREEN, "green"},
         {BLUE, "blue"},
+        */
+        {TEST, "smpte"},
     };
 
     gst_init(&argc, &argv);
